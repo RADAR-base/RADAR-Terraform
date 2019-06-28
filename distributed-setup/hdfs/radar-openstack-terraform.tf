@@ -9,6 +9,10 @@ variable "RADAR_BASE_DIRECTORY" {
   default = "/home/ubuntu/radar-cp-stack"
 }
 
+variable "TERRAFORM_OPENSTACK_KEY_PAIR_NAME" {
+  default = ""
+}
+
 provider "openstack" {
   user_name   = ""
   tenant_name = ""
@@ -64,7 +68,7 @@ resource "openstack_compute_instance_v2" "radar" {
   name            = "radar"
   image_name      = "ubuntu-18.04"
   flavor_name     = "m1.xlarge"
-  key_pair        = "CLOUD_ROSALIND"
+  key_pair        = "${var.TERRAFORM_OPENSTACK_KEY_PAIR_NAME}"
   user_data       = "${data.template_cloudinit_config.cloudinit.rendered}"
   metadata = {
     this = "radar"
@@ -107,8 +111,7 @@ resource "null_resource" "radar-provision" {
   provisioner "remote-exec" {
     inline =  [
       "chmod +x add-network-interface.sh",
-      "sudo bash add-network-interface.sh",
-      "sudo netplan apply"
+      "sudo bash add-network-interface.sh"
     ]
   }
 

@@ -17,7 +17,7 @@ resource "openstack_compute_instance_v2" "hdfs-datanode-1" {
   name            = "hdfs-datanode-1"
   image_name      = "ubuntu-18.04"
   flavor_name     = "m1.small"
-  key_pair        = "CLOUD_ROSALIND"
+  key_pair        = "${var.TERRAFORM_OPENSTACK_KEY_PAIR_NAME}"
   user_data       = "${data.template_cloudinit_config.cloudinit.rendered}"
   metadata = {
     this = "hdfs"
@@ -32,7 +32,7 @@ resource "openstack_compute_instance_v2" "hdfs-datanode-2" {
   name            = "hdfs-datanode-2"
   image_name      = "ubuntu-18.04"
   flavor_name     = "m1.small"
-  key_pair        = "CLOUD_ROSALIND"
+  key_pair        = "${var.TERRAFORM_OPENSTACK_KEY_PAIR_NAME}"
   user_data       = "${data.template_cloudinit_config.cloudinit.rendered}"
   metadata = {
     this = "hdfs"
@@ -47,7 +47,7 @@ resource "openstack_compute_instance_v2" "hdfs-datanode-3" {
   name            = "hdfs-datanode-3"
   image_name      = "ubuntu-18.04"
   flavor_name     = "m1.small"
-  key_pair        = "CLOUD_ROSALIND"
+  key_pair        = "${var.TERRAFORM_OPENSTACK_KEY_PAIR_NAME}"
   user_data       = "${data.template_cloudinit_config.cloudinit.rendered}"
   metadata = {
     this = "hdfs"
